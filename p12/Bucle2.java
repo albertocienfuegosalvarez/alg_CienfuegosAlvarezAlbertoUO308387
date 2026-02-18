@@ -5,16 +5,16 @@ public class Bucle2 {
 		long cont = 0;
 		long n1 = n;
 		do {
-			for (long i = 1; i <= n; i++) {
-				for (long j = n; j >= 0; j -= 2) {
+			for (long i = 1; i <= n; i++) {		// n
+				for (long j = n; j >= 0; j -= 2) {	// n/2 -> n
 					cont++;
 				}
-			}
+			}							// n^2
 			n1 = n1 / 3;
-		} while (n1 >= 1);
+		} while (n1 >= 1); // log3(n)
 
 		return cont;
-	}
+	}						// total -> n^2 * log n
 
 	public static void main(String arg[]) {
 		long t1, t2;

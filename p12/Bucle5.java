@@ -1,13 +1,15 @@
 package p12;
 
-public class Bucle4 {
+public class Bucle5 {
 
-	public static long bucle4(int n) {
+	public static long bucle5(int n) {
 		long cont = 0;
 		for (int i = 1; i <= n; i++) {
 			for (int j = 1; j <= i; j++) {
-				for (int k = 1; k <= j; k++) {
-					cont++;
+				for (int k = 1; k <= j; k *= 2) {
+					for (int t = 1; t <= k; t *= 2) {
+						cont++;
+					}
 				}
 			}
 		}
@@ -32,7 +34,7 @@ public class Bucle4 {
 			t1 = System.currentTimeMillis();
 
 			for (int repeticiones = 1; repeticiones <= nVeces; repeticiones++){
-				c = bucle4(n);
+				c = bucle5(n);
 			}
 			t2 = System.currentTimeMillis();
 

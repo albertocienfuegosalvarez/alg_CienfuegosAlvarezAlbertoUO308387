@@ -8,8 +8,8 @@ public class Bucle1 {
 			for (long i = 1; i <= 2 * n; i += 3) {
 				cont++;
 			}
-			n1 = 3 * n1;
-		}
+			n1 = 3 * n1;	// log3(n^2) = 2*log3(n)*2n
+		}					// total -> n*logn
 
 		return cont;
 	}

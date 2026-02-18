@@ -9,8 +9,8 @@ def bucle4(n):
             for _ in range(1, j + 1, 1):
                 cont = cont + 1
     return cont
-
-
+  
+  
 def main():
     print("TIEMPO= MILISEGUNDOS")
     t1, t2, n = 0, 0, 100
