@@ -68,6 +68,9 @@ public class PuntosDyV
 			Resultado resIzq = minimaDistancia(puntos, izq, medio);
 			Resultado resDer = minimaDistancia(puntos, medio, der);
 			return (resIzq.getDistancia() <= resDer.getDistancia()) ? resIzq : resDer;
+			// AQUI PROBAR SI LA DISTANCIA DE LA FRAJA ES MENOR 
+			// GUARDAR EN LISTAS LOS PUNTOS MEDIOS DE AMBAS DIVISIONES..... HACER LA COMBINACION CUANDO ACABAS TODA LA RECURSIVIDAD, PARA
+			// COMPARA LA FRANJA DEL PRIMER CORTE, DENTRO DEL IF
 		}
 	}
 
