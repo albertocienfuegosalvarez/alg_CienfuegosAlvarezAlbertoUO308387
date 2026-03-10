@@ -59,18 +59,22 @@ public class PuntosDyV
 		System.out.println(String.format("SU DISTANCIA MÍNIMA = %.6f", r.getDistancia())); 
 	}
 
-	
+
 	private Resultado minimaDistancia(Punto[] puntos, int izq, int der) {
+		int medio = (izq + der) / 2;
+		Resultado resultadoRecursivo = minimaDistanciaR(puntos, izq, der);
+		Resultado franja = new Resultado(puntos[medio], puntos[medio + 1]);
+		return (franja.distancia < resultadoRecursivo.distancia) ? franja : resultadoRecursivo;	
+	}
+	
+	private Resultado minimaDistanciaR(Punto[] puntos, int izq, int der) {
 		if (der-izq <= 1) {
 			return new Resultado(puntos[izq], puntos[der]);
 		} else {
 			int medio = (izq + der) / 2;
-			Resultado resIzq = minimaDistancia(puntos, izq, medio);
-			Resultado resDer = minimaDistancia(puntos, medio, der);
+			Resultado resIzq = minimaDistanciaR(puntos, izq, medio);
+			Resultado resDer = minimaDistanciaR(puntos, medio, der);
 			return (resIzq.getDistancia() <= resDer.getDistancia()) ? resIzq : resDer;
-			// AQUI PROBAR SI LA DISTANCIA DE LA FRAJA ES MENOR 
-			// GUARDAR EN LISTAS LOS PUNTOS MEDIOS DE AMBAS DIVISIONES..... HACER LA COMBINACION CUANDO ACABAS TODA LA RECURSIVIDAD, PARA
-			// COMPARA LA FRANJA DEL PRIMER CORTE, DENTRO DEL IF
 		}
 	}
 
