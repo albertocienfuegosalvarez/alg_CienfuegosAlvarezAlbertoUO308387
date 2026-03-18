@@ -1,0 +1,16 @@
+S[i] -> suma de longitudes de los primeros i vehiculos
+
+DP[i][p] = True si es posible colocar una combinacion de los
+primeros i vehiculo en babor ocupando una longitud p
+
+V[i] -> longitud vehiculo i
+
+p -> metros de lado de barco ocupado
+
+Transicion para i>=i desde cualquier p donde DP[i-1, p] sea True
+    colocar en babor si p + v <= L -> DP[i][p+v[i]] = True
+    colocar en estribuot si S[i] - p <= L -> DP[i][p] = True
+
+Nos detenemos en el primer i cuyo estado DP[i][*] toda a False
+
+Caso base: 0-0 a T y el resto a F
