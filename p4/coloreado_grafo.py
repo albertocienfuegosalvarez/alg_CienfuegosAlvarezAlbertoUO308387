@@ -3,8 +3,28 @@ import json
 from auxiliar import dibujar_mapa_coloreado, generar_mapa_grafo
 
 
+def realizar_voraz(grafo):
+    colores = ["red", "blue", "green", "yellow", "orange", "purple", "cyan", "magenta", "lime"]
+    solucion = {}
+
+    for nodo in grafo:
+        coloresVecinos = set()
+
+        for vecino in grafo[nodo]:
+            vecino = str(vecino)
+            if vecino in solucion:
+                coloresVecinos.add(solucion[vecino])
+        
+        for color in colores:
+            if color not in coloresVecinos:
+                solucion[nodo] = color
+                break
+
+    return solucion
+
+
 if __name__ == "__main__":
-    n = 4
+    n = 8
     mapa = generar_mapa_grafo(n)
     solucion = realizar_voraz(mapa["grafo"])
 

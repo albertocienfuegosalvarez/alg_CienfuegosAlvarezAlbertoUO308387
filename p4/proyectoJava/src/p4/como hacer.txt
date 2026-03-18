@@ -1,2 +1,0 @@
-for string node dic.keyset
-has vecinos = 
