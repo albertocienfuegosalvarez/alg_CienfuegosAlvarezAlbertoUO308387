@@ -1,6 +1,10 @@
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Scanner;
 
 class AlmacenajeContenedores {
@@ -14,23 +18,15 @@ class AlmacenajeContenedores {
     public AlmacenajeContenedores(int capacidadC, Integer[] conjuntosS) {
         this.capacidadC = capacidadC;
         this.conjuntoS = conjuntosS;
-        this.mejorK = conjuntosS.length;
+        this.mejorK = conjuntosS.length;        // ponemos la peor distribucion
         this.llamadasRecursivas = 0;
-        rellenarPeorSolucion();
-    }
-
-    private void rellenarPeorSolucion() {               // TODO ESTO CREO QUE NO HACE FALTA...
-        this.mejorDistribucion = new ArrayList<>();
-        for (int i=0; i < conjuntoS.length; i++) {
-            mejorDistribucion.add(new ArrayList<Integer>().add(conjuntosS[i]));
-        }
     }
 
     public void resolver() {
         Arrays.sort(conjuntoS, Comparator.reverseOrder());     // Ordenar descendente para reducir el numero de llamadas recursivas
         List<List<Integer>> contenedores = new ArrayList<>();
         backtraking(0, contenedores);
-        mostrarSolucion();
+        generarSolucion();
     }
 
     private void backtraking(int indexObject, List<List<Integer>> contenedores) {
@@ -52,14 +48,13 @@ class AlmacenajeContenedores {
         }
 
         // Probar a meter en contenedores existentes
-        for (int i= 0; i <contendores.size(); i++) {
+        for (int i= 0; i <contenedores.size(); i++) {
             if (sum(contenedores.get(i)) + conjuntoS[indexObject] <= capacidadC) {
                 // Avanzar
                 contenedores.get(i).add(conjuntoS[indexObject]);
-                backtraking(indexObject + 1, contendores);
+                backtraking(indexObject + 1, contenedores);
                 // Retroceder
                 contenedores.get(i).removeLast();
-               
             }
         }
         
@@ -77,7 +72,7 @@ class AlmacenajeContenedores {
     private List<List<Integer>> copiar(List<List<Integer>> contenedores) {
         List<List<Integer>> copia = new ArrayList<>();
         for (List<Integer> i : contenedores) {
-            copia.add(i);
+            copia.add(new ArrayList<>(i));  // copia sin referencia
         }
         return copia;
     }
@@ -90,23 +85,51 @@ class AlmacenajeContenedores {
         return total;
     }
 
-    private void mostrarSolucion() {
-        System.out.println("Numero de llamadas recursivas: " + llamadasRecursivas);
-        
-        Scanner sc = new Scanner(new FileWrite("solucion.txt"));
+    private void generarSolucion() {
+        try (BufferedWriter out = new BufferedWriter(new FileWriter("solucion.txt"))) {
+            
+            out.write("Lista de contenedores y objetos contenidos:\n");
+            for (int i = 0; i < mejorK; i++) {
+                out.write(String.format("Contenedor %d: %s\n", i + 1, getDistribucionDe(i)));
+            }
+            out.write(String.format("El número de contenedores necesario es %d.\n", mejorK));
 
+        }catch (Exception e) {
+            e.printStackTrace();
+
+        }
+    }
+    
+    private String getDistribucionDe(int contenedor) {
+        String distribucion = "";
+        for (int i = 0; i < mejorDistribucion.get(contenedor).size(); i++) {
+            distribucion += mejorDistribucion.get(contenedor).get(i) + " ";
+        }
+        return distribucion;
+    }
+
+    public void imprimirLlamadas() {
+        System.out.println("Numero de llamadas recursivas: " + llamadasRecursivas);
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(new FileReader(args[0]));
-        int capacidadC = sc.nextInt();
-        String[] conjuntosString = sc.nextLine().split(" ");
-        Integer[] conjuntosInteger = new Integer(conjuntosString.length);
-        int i = 0;
-        for (String s: conjuntosString) {
-            conjuntosInteger[i++] = Integer.parseInt(s);
+        try {
+            Scanner sc = new Scanner(new FileReader(".\\CasosPrueba\\" + args[0]));
+            int capacidadC = sc.nextInt();
+            sc.nextLine();  // para que salte a la siguiente porque sino se queda en la de la capacidad
+            String[] conjuntosString = sc.nextLine().split(" ");
+            Integer[] conjuntosInteger = new Integer[conjuntosString.length];
+            int i = 0;
+            for (String s: conjuntosString) {
+                conjuntosInteger[i++] = Integer.parseInt(s);
+            }
+            
+            AlmacenajeContenedores problema = new AlmacenajeContenedores(capacidadC, conjuntosInteger);
+            problema.resolver();
+            problema.imprimirLlamadas();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        
-        new AlmacenajeContenedores(capacidadC, conjuntosInteger).resolver();    
     }   
 }

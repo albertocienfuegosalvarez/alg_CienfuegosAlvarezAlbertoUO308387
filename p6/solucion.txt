@@ -1,0 +1,21 @@
+Lista de contenedores y objetos contenidos:
+Contenedor 1: 19 1 
+Contenedor 2: 18 2 
+Contenedor 3: 17 3 
+Contenedor 4: 17 3 
+Contenedor 5: 16 4 
+Contenedor 6: 16 4 
+Contenedor 7: 15 5 
+Contenedor 8: 15 5 
+Contenedor 9: 14 6 
+Contenedor 10: 14 6 
+Contenedor 11: 13 7 
+Contenedor 12: 13 7 
+Contenedor 13: 12 8 
+Contenedor 14: 12 8 
+Contenedor 15: 11 9 
+Contenedor 16: 11 9 
+Contenedor 17: 10 10 
+Contenedor 18: 7 6 5 2 
+Contenedor 19: 4 3 1 
+El número de contenedores necesario es 19.
