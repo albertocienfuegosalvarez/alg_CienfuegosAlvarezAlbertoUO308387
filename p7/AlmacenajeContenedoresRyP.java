@@ -29,7 +29,7 @@ class AlmacenajeContenedoresRyP {
         generarSolucion();
     }
 
-    private int calcularSumaTotal() {          // otro heuristico es el sumatorio / capacidad
+    private int calcularSumaTotal() {
         int suma = 0;
         for (int i=0; i<conjuntoS.length; i++) {
             suma += conjuntoS[i];
@@ -65,11 +65,11 @@ class AlmacenajeContenedoresRyP {
                 contenedores.get(i).add(conjuntoS[indexObject]);
                 backtraking(indexObject + 1, contenedores, sumaRestante - conjuntoS[indexObject]);
                 // Retroceder
-                contenedores.get(i).removeLast();
+                contenedores.get(i).remove(contenedores.get(i).size() - 1);
             }
         }
         
-        if (contenedores.size() < mejorK - 1) {     // TODO esto no se si esta bien... tienen que salir como 69 iters...
+        if (contenedores.size() < mejorK - 1) {
             // Intentar meterlo en un nuevo contenedor
             List<Integer> nuevoContenedor = new ArrayList<>();
             nuevoContenedor.add(conjuntoS[indexObject]);
@@ -77,11 +77,8 @@ class AlmacenajeContenedoresRyP {
             // Avanzo
             backtraking(indexObject + 1, contenedores, sumaRestante - conjuntoS[indexObject]);
             // Retroceso
-            contenedores.removeLast();
+            contenedores.remove(contenedores.size() - 1);
         }
-        
-        // JUNTAR EL PDF, PONER UN INDICE PONER UO Y NOMBRE CABEZERA...
-        // ES DONDE GUARDAR
     }
 
     private List<List<Integer>> copiar(List<List<Integer>> contenedores) {
